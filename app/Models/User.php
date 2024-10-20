@@ -45,4 +45,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    //Relacion con el modelo de pass
+    public function passwords()
+    {
+        return $this->hasMany(Pass::class);
+    }
 }
