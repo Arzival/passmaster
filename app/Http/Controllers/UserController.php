@@ -20,7 +20,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'secret-word' => $request->secret_word,
+            'secret_word' => bcrypt($request->secret_word),
         ]);
 
         $user->save();

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pass', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('passsword');
+            $table->string('password');
             $table->string(('sistema'));
             $table->timestamps();
         });
