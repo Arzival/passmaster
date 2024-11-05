@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pass extends Model
 {
     protected $table = 'pass';
-    protected $fillable = ['password', 'sistema'];
+    protected $fillable = ['password', 'sistema','user'];
     
     // Relación inversa: Una contraseña pertenece a un usuario
     public function user()

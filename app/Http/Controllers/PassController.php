@@ -40,9 +40,10 @@ class PassController extends Controller
             $request->validate([
                 'password' => 'required|string',
                 'sistema' => 'required|string',
+                'user' => 'required|string',
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('id', $request->user_id)->first();
 
             if (!$user) {
                 return response()->json(['message' => 'Usuario no encontrado'], 404);
@@ -64,6 +65,7 @@ class PassController extends Controller
             $password = $user->passwords()->create([
                 'password' => $encryptedData,
                 'sistema' => $request->sistema,
+                'user' => $request->user,
             ]);
 
             return response()->json([

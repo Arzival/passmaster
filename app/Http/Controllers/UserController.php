@@ -28,7 +28,7 @@ class UserController extends Controller
             'message' => 'Successfully created user!',
         ], 201);
     }
-    
+
     public function registerSecretWord(Request $request)
     {
         $request->validate([
@@ -47,24 +47,29 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string',
+            ]);
 
-        $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'message' => 'Unauthorized',
+                ], 401);
+            }
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
             return response()->json([
-                'message' => 'Unauthorized',
-            ], 401);
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'user_id' => $user->id, // Incluyendo el ID del usuario
+            ], 200);
+        } catch (\Exception $exception) {
+            return response()->json(['message' => $exception->getMessage()], 400);
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ]);
     }
 }
