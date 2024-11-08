@@ -101,10 +101,10 @@ class PassController extends Controller
             // Validar que se proporcione la palabra clave
             $request->validate([
                 'secret_word' => 'required',
-                'sistema' => 'required'
+                'sistema_id' => 'required'
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('id', $request->user_id)->first();
 
             if (!$user) {
                 return response()->json(['message' => 'Usuario no encontrado'], 404);
@@ -112,7 +112,7 @@ class PassController extends Controller
 
             // Verificar si la secret_word ingresada coincide con la almacenada
             if (Hash::check($request->secret_word, $user->secret_word)) {
-                $pass = Pass::where('user_id', $user->id)->where('sistema', $request->sistema)->first();
+                $pass = Pass::where('user_id', $user->id)->where('id', $request->sistema_id)->first();
                 if ($pass) {
                     $decryptedPassword = $this->decryptPassword($pass->password, $user->secret_word);
                     return response()->json(['password' => $decryptedPassword], 200);
@@ -139,5 +139,18 @@ class PassController extends Controller
         }
 
         return response()->json(['password' => $randomString], 200);
+    }
+
+    public function getSistemsUser(Request $request)
+    {
+        $user = User::where('id', $request->user_id)->first();
+
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no encontrado'], 404);
+        }
+
+        $sistems = $user->passwords()->select('id','sistema','user')->distinct()->get();
+
+        return response()->json(['sistems' => $sistems], 200);
     }
 }
