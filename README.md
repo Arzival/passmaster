@@ -21,6 +21,7 @@ Antes de instalar este proyecto, asegúrate de tener los siguientes requisitos:
 - **Composer**.
 - **MySQL** o cualquier otra base de datos compatible con Laravel.
 - Un servidor web como **Apache** o **Nginx**.
+
 ---
 
 ## Instalación
@@ -65,12 +66,7 @@ Antes de instalar este proyecto, asegúrate de tener los siguientes requisitos:
    php artisan migrate
    ```
 
-6. Si deseas cargar datos de prueba, ejecuta:
-   ```bash
-   php artisan db:seed
-   ```
-
-7. Inicia el servidor de desarrollo:
+6. Inicia el servidor de desarrollo:
    ```bash
    php artisan serve
    ```
