@@ -21,8 +21,6 @@ Antes de instalar este proyecto, asegúrate de tener los siguientes requisitos:
 - **Composer**.
 - **MySQL** o cualquier otra base de datos compatible con Laravel.
 - Un servidor web como **Apache** o **Nginx**.
-- **Node.js** (para ejecutar el frontend opcionalmente).
-
 ---
 
 ## Instalación
