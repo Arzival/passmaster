@@ -1,66 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# PassMaster Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es el backend para **PassMaster**, una aplicación que permite gestionar contraseñas de manera segura. Está construido con **Laravel 11** y utiliza **PHP 8.3**.
 
-## About Laravel
+## Tabla de Contenidos
+- [Requisitos](#requisitos)
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Características](#características)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [API Endpoints](#api-endpoints)
+- [Contribución](#contribución)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Antes de instalar este proyecto, asegúrate de tener los siguientes requisitos:
 
-## Learning Laravel
+- **PHP 8.3** o superior.
+- **Composer**.
+- **MySQL** o cualquier otra base de datos compatible con Laravel.
+- Un servidor web como **Apache** o **Nginx**.
+- **Node.js** (para ejecutar el frontend opcionalmente).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalación
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/Arzival/passmaster.git
+   cd passmaster
+   ```
 
-## Laravel Sponsors
+2. Instalar dependencias de PHP usando Composer:
+   ```bash
+   composer install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Configurar las variables de entorno:
+   - Renombra el archivo `.env.example` a `.env`.
+   - Actualiza los valores con tus credenciales de base de datos y configuración:
 
-### Premium Partners
+     ```env
+     APP_NAME=PassMaster
+     APP_ENV=local
+     APP_KEY=base64:GENERATE_KEY_AQUI
+     APP_DEBUG=true
+     APP_URL=http://passmaster.test
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+     DB_CONNECTION=mysql
+     DB_HOST=127.0.0.1
+     DB_PORT=3306
+     DB_DATABASE=passmaster
+     DB_USERNAME=root
+     DB_PASSWORD=
+     ```
 
-## Contributing
+4. Generar una clave de aplicación:
+   ```bash
+   php artisan key:generate
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Ejecutar migraciones para crear las tablas necesarias en la base de datos:
+   ```bash
+   php artisan migrate
+   ```
 
-## Code of Conduct
+6. Si deseas cargar datos de prueba, ejecuta:
+   ```bash
+   php artisan db:seed
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. Inicia el servidor de desarrollo:
+   ```bash
+   php artisan serve
+   ```
 
-## Security Vulnerabilities
+   El backend estará disponible en [http://localhost:8000](http://localhost:8000).
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Configuración
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Este proyecto utiliza un archivo `.env` para manejar la configuración del entorno. Aquí algunos valores importantes:
+
+- `APP_KEY`: La clave de aplicación generada automáticamente.
+- `DB_*`: Configuración de la base de datos.
+- `APP_URL`: URL del backend para asegurar que las rutas generadas sean correctas.
+
+---
+
+## Características
+
+1. **Autenticación**:
+   - Registro, inicio de sesión y autenticación mediante tokens API.
+
+2. **Gestión de Contraseñas**:
+   - Generar, guardar y recuperar contraseñas cifradas con una palabra secreta.
+
+3. **Cifrado Seguro**:
+   - Utiliza `AES-256-CBC` para cifrar contraseñas.
+
+4. **Soporte para Multiplataforma**:
+   - Acceso desde cualquier frontend conectado al backend.
+
+---
+
+## Estructura del Proyecto
+
+```plaintext
+├── app/
+│   ├── Console/          # Comandos personalizados de Artisan
+│   ├── Exceptions/       # Manejo de excepciones
+│   ├── Http/
+│   │   ├── Controllers/  # Controladores de las rutas
+│   │   ├── Middleware/   # Middleware para manejar peticiones
+│   │   └── Requests/     # Validaciones de solicitudes HTTP
+│   ├── Models/           # Modelos Eloquent
+│   └── Providers/        # Proveedores de servicios
+├── database/
+│   ├── migrations/       # Migraciones de la base de datos
+│   ├── seeders/          # Seeders para datos de prueba
+├── routes/
+│   ├── api.php           # Rutas para el API
+│   └── web.php           # Rutas para la web
+├── storage/              # Archivos generados, logs, etc.
+├── .env                  # Configuración del entorno
+├── artisan               # Script principal de Artisan
+├── composer.json         # Dependencias de PHP
+└── phpunit.xml           # Configuración de pruebas
+```
+
+---
+
+## API Endpoints
+
+### Autenticación
+- **POST /api/register**: Registrar un nuevo usuario.
+- **POST /api/login**: Iniciar sesión y obtener un token de acceso.
+
+### Contraseñas
+- **POST /api/get-sistems**: Obtener el listado de los sistemas que registró el usuario.
+- **POST /api/save-password**: Guardar el usuario y contraseña del sistema.
+- **POST /api/register-secret-word**: Guardar la palabra secreta asociada al usuario.
+- **POST /api/suggest-password**: Generar una contraseña segura.
+- **POST /api/get-password**: Obtener una contraseña desencriptada.
+
+---
+
+## Contribución
+
+1. Haz un **fork** del repositorio.
+2. Crea una nueva rama:
+   ```bash
+   git checkout -b feature/nueva-funcionalidad
+   ```
+3. Realiza los cambios y haz un commit:
+   ```bash
+   git commit -m "Agrega nueva funcionalidad"
+   ```
+4. Haz un push a la rama:
+   ```bash
+   git push origin feature/nueva-funcionalidad
+   ```
+5. Abre un **Pull Request**.
+
+---
+
+Gracias por tu interés en contribuir a **PassMaster**.
