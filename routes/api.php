@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassController;
 use App\Http\Controllers\UserController;
 
+Route::get('adoqif', function () {
+    return response()->json(['message' => 'Hola Mundo']);
+});
+
 Route::middleware('api')->group(function () {
     Route::post('register', [UserController::class, 'register']);
     

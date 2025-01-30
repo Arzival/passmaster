@@ -66,7 +66,7 @@ class UserController extends Controller
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'Bearer',
-                'user_id' => $user->id, // Incluyendo el ID del usuario
+                'user_id' => $user->id,
             ], 200);
         } catch (\Exception $exception) {
             return response()->json(['message' => $exception->getMessage()], 400);
